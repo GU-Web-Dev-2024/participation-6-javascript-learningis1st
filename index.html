@@ -54,34 +54,48 @@
     </div>
 
     <script>
-
         // The game generates a random number between 1 and 10.
-        const randomNumber = Math.floor(Math.random() * 10) + 1;
-
         // You (the player) will enter a guess.
+        // The program will check if your guess is correct, too high, or too low.
+        // You will have 3 guesses before the game ends.
+        // The game will provide feedback after each guess.
+
+        let randomNumber = Math.floor(Math.random() * 10) + 1;
+        let guesses = 3;
+        let won = false;
+
         const guessInput = document.getElementById('guess-input');
         const guessButton = document.getElementById('guess-button');
+        const message = document.getElementById('message');
 
-        // The program will check if your guess is correct, too high, or too low. You will have 3 guesses before the game ends.
-        let remainingGuesses = 3;
+        guessButton.addEventListener('click', checkGuess);
 
-        guessButton.addEventListener('click', function () {
-            remainingGuesses--;
-
-            const guess = parseInt(guessInput.value);
+        function checkGuess() {
+            let guess = parseInt(guessInput.value);
 
             if (guess === randomNumber) {
-                setMessage('Congratulations! You guessed the correct number!');
-                guessInput.disabled = true;
-                guessButton.disabled = true;
-            } else if (remainingGuesses === 0) {
-                setMessage(`Sorry! The correct number was ${randomNumber}.`);
-                guessInput.disabled = true;
-                guessButton.disabled = true;
+                won = true;
+                gameOver();
             } else {
-                setMessage(`Sorry! The correct number is ${guess < randomNumber ? 'higher' : 'lower'}. You have ${remainingGuesses} guesses left.`);
+                guesses--;
+                if (guesses === 0) {
+                    gameOver();
+                } else {
+                    message.innerHTML = `Wrong guess. You have ${guesses} guesses left.`;
+                }
             }
-        });
+        }
+
+        function gameOver() {
+            if (won) {
+                message.innerHTML = 'Congratulations! You guessed the correct number.';
+            } else {
+                message.innerHTML = `Game Over. The correct number was ${randomNumber}.`;
+            }
+
+            guessInput.disabled = true;
+            guessButton.disabled = true;
+        }
 
     </script>
 </body>
