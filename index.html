@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+
+    <style>
+        body {
+            margin: auto;
+            max-width: 600px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        body>div>div {
+            margin: 15px;
+        }
+
+        #guess-input {
+            width: 125px;
+        }
+
+        .outside {
+            border: 5px dotted rgb(0, 72, 255);
+            border-radius: 15px;
+            padding: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="outside">
+
+        <h1>Guess the Number (1-10)</h1>
+
+        <hr>
+
+        <div>
+            <label for="guess-input">Guess:</label>
+            <input type="number" id="guess-input" min="1" max="10" placeholder="Enter your guess">
+        </div>
+
+        <div>
+            <button id="guess-button">Submit Guess</button>
+        </div>
+
+        <div>
+            <p id="message"></p>
+        </div>
+        <hr>
+    </div>
+
+    <script>
+
+        // Add a click listener to the button
+        document.getElementById('guess-button').addEventListener('click', function() {
+            // Get the value of the input field
+            var guess = document.getElementById('guess-input').value;
+            // Generate a random number between 1 and 10
+            var randomNumber = Math.floor(Math.random() * 10) + 1;
+            // Display feedback after each guess
+            if (guess == randomNumber) {
+                document.getElementById('message').innerHTML = "Correct!";
+            } else if (guess > randomNumber) {
+                document.getElementById('message').innerHTML = "Too high!";
+            } else {
+                document.getElementById('message').innerHTML = "Too low!";
+            }
+        });
+
+    </script>
+</body>
+
+</html>
