@@ -81,7 +81,7 @@
                 if (guesses === 0) {
                     gameOver();
                 } else {
-                    message.innerHTML = `Wrong guess. You have ${guesses} guesses left.`;
+                    message.innerHTML = `Too ${guess > randomNumber ? 'high' : 'low'}. You have ${guesses} guesses left.`;
                 }
             }
         }
