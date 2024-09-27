@@ -55,19 +55,31 @@
 
     <script>
 
-        // Add a click listener to the button
-        document.getElementById('guess-button').addEventListener('click', function() {
-            // Get the value of the input field
-            var guess = document.getElementById('guess-input').value;
-            // Generate a random number between 1 and 10
-            var randomNumber = Math.floor(Math.random() * 10) + 1;
-            // Display feedback after each guess
-            if (guess == randomNumber) {
-                document.getElementById('message').innerHTML = "Correct!";
-            } else if (guess > randomNumber) {
-                document.getElementById('message').innerHTML = "Too high!";
+        // The game generates a random number between 1 and 10.
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+
+        // You (the player) will enter a guess.
+        const guessInput = document.getElementById('guess-input');
+        const guessButton = document.getElementById('guess-button');
+
+        // The program will check if your guess is correct, too high, or too low. You will have 3 guesses before the game ends.
+        let remainingGuesses = 3;
+
+        guessButton.addEventListener('click', function () {
+            remainingGuesses--;
+
+            const guess = parseInt(guessInput.value);
+
+            if (guess === randomNumber) {
+                setMessage('Congratulations! You guessed the correct number!');
+                guessInput.disabled = true;
+                guessButton.disabled = true;
+            } else if (remainingGuesses === 0) {
+                setMessage(`Sorry! The correct number was ${randomNumber}.`);
+                guessInput.disabled = true;
+                guessButton.disabled = true;
             } else {
-                document.getElementById('message').innerHTML = "Too low!";
+                setMessage(`Sorry! The correct number is ${guess < randomNumber ? 'higher' : 'lower'}. You have ${remainingGuesses} guesses left.`);
             }
         });
 
